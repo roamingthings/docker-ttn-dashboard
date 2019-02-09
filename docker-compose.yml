@@ -113,7 +113,7 @@
 # debugging.
 #
 
-version: '3.7'
+version: '3'
 services:
   # the apache server connects us to the outside world
   apache:
@@ -187,7 +187,7 @@ services:
       context: ./postfix
       dockerfile: Dockerfile
       args:
-        relay_ip: "${TTN_DASHBOARD_MAIL_RELAY_IP:-}"
+        relay_ip: "${TTN_DASHBOARD_MAIL_RELAY_IP:-.}"
         host_name: "${TTN_DASHBOARD_MAIL_HOST_NAME:-.}"
         domain: "${TTN_DASHBOARD_MAIL_DOMAIN:-.}"
 
@@ -209,7 +209,7 @@ services:
       GF_SMTP_FROM_NAME: "${TTN_DASHBOARD_GRAFANA_PROJECT_NAME:-Default} grafana admin"
       GF_LOG_MODE: "${TTN_DASHBOARD_GRAFANA_LOG_MODE:-console,file}"
       GF_LOG_LEVEL: "${TTN_DASHBOARD_GRAFANA_LOG_LEVEL:-info}"
-      GF_INSTALL_PLUGINS: "${TTN_DASHBOARD_GRAFANA_INSTALL_PLUGINS:-}"
+      GF_INSTALL_PLUGINS: "${TTN_DASHBOARD_GRAFANA_INSTALL_PLUGINS:-.}"
     # grafana opens ports on influxdb and postfix, so it needs to be able to talk to it.
     links:
       - influxdb
